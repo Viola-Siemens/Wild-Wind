@@ -22,7 +22,7 @@ public class WildWind {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
-
+		event.enqueueWork(WWContent::init);
 	}
 
 	public static ResourceLocation location(String path) {
