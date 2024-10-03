@@ -5,38 +5,31 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
 import org.polaris2023.wild_wind.WildWind;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 
 public class FireflyRenderer extends EntityRenderer<Firefly> {
-
     private static final ResourceLocation FIREFLY_LOCATION = WildWind.location("textures/entity/firefly.png");
 
-    protected FireflyRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext);
+    protected FireflyRenderer(EntityRendererProvider.Context context) {
+        super(context);
 
     }
 
-    /**
-     * Returns the location of an entity's texture.
-     *
-     * @param pEntity {@link  Firefly}
-     */
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull Firefly pEntity) {
+    public ResourceLocation getTextureLocation(Firefly entity) {
         return FIREFLY_LOCATION;
     }
 
     @Override
     public void render(
-            @NotNull Firefly pEntity,
-            float pEntityYaw,
-            float pPartialTick,
-            @NotNull PoseStack pPoseStack,
-            @NotNull MultiBufferSource pBufferSource,
-            int pPackedLight
+            Firefly entity,
+            float yaw,
+            float partialTick,
+            PoseStack transform,
+            MultiBufferSource bufferSource,
+            int packedLight
     ) {
-        super.render(pEntity, pEntityYaw, pPartialTick, pPoseStack, pBufferSource, pPackedLight);
+        super.render(entity, yaw, partialTick, transform, bufferSource, packedLight);
     }
 }
