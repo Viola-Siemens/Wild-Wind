@@ -1,16 +1,25 @@
 package org.polaris2023.wild_wind.client;
 
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import org.polaris2023.wild_wind.client.renderer.entity.FireflyRenderer;
+import org.polaris2023.wild_wind.common.registry.EntitiesRegistry;
 
-import static org.polaris2023.wild_wind.WildWind.MODID;
+import static org.polaris2023.wild_wind.api.Const.MODID;
 
-@EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
+@Mod(value = MODID, dist = Dist.CLIENT)
 public class WWClient {
-    @OnlyIn(Dist.CLIENT)
-    public static void modConstruction(IEventBus bus) {
-        // TODO: Add client-side mod construction code here
+
+    public WWClient(IEventBus modBus, ModContainer modContainer) {
+        modBus.addListener(WWClient::renderRegister);
+
     }
+
+    public static void renderRegister(EntityRenderersEvent.RegisterRenderers event)  {
+        event.registerEntityRenderer(EntitiesRegistry.firefly.get(), FireflyRenderer::new);
+    }
+
 }

@@ -5,15 +5,15 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import org.polaris2023.wild_wind.WildWind;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 
+import static org.polaris2023.wild_wind.api.Const.location;
+
 public class FireflyRenderer extends EntityRenderer<Firefly> {
-    private static final ResourceLocation FIREFLY_LOCATION = WildWind.location("textures/entity/firefly.png");
+    private static final ResourceLocation FIREFLY_LOCATION = location("textures/entity/firefly.png");
 
-    protected FireflyRenderer(EntityRendererProvider.Context context) {
+    public FireflyRenderer(EntityRendererProvider.Context context) {
         super(context);
-
     }
 
     @Override
