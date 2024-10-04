@@ -2,20 +2,16 @@ package org.polaris2023.wild_wind.common;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import org.polaris2023.annotation.AutoInfo;
 import org.polaris2023.wild_wind.common.registry.AllRegistry;
 import org.polaris2023.wild_wind.common.registry.ItemsRegistry;
 
 import static org.polaris2023.wild_wind.api.Const.MODID;
 
 @Mod(value = MODID)
-@AutoInfo
 public class WildWind {
 
 	public WildWind(IEventBus modBus, ModContainer modContainer) {
