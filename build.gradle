@@ -69,6 +69,8 @@ repositories {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
+    compileOnly(project(":annotation"))
+    annotationProcessor(project(":processor"))
     //compileOnly("mezz.jei:jei-${jei_mc_version}-neoforge:${jei_version}")
 }
 

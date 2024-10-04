@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import static org.polaris2023.wild_wind.WildWind.MODID;
+import static org.polaris2023.wild_wind.api.Const.MODID;
 
 public class AllRegistry {
     public static final DeferredRegister.Items items = DeferredRegister.createItems(MODID);
