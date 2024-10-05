@@ -14,7 +14,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyModel> {
     private static final ResourceLocation FIREFLY_LOCATION = location("textures/entity/firefly.png");
 
     public FireflyRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new FireflyModel(pContext.bakeLayer(FireflyModel.LOCATION)), 1f);
+        super(pContext, new FireflyModel(pContext.bakeLayer(FireflyModel.LOCATION)), 0.4f);
     }
 
 
@@ -32,6 +32,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyModel> {
             MultiBufferSource bufferSource,
             int packedLight
     ) {
+
         super.render(entity, yaw, partialTick, transform, bufferSource, packedLight);
     }
 }

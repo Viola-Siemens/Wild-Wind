@@ -12,10 +12,6 @@ public class Base extends Goal {
     }
     @Override
     public boolean canUse() {
-        Level level = firefly.level();
-        if (!level.isClientSide) {
-            Player nearestPlayer = level.getNearestPlayer(firefly, 10);
-        }
-        return true;
+        return false;
     }
 }
