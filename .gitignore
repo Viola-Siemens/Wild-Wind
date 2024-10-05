@@ -21,5 +21,7 @@ build
 eclipse
 run
 
+**/generated/**/.cache/
+
 # Files from Forge MDK
 forge*changelog.txt

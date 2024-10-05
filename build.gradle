@@ -1,3 +1,6 @@
+import java.nio.file.Files
+import java.time.LocalDateTime
+
 plugins {
     id 'java-library'
     id 'eclipse'
@@ -5,6 +8,16 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.gradle.userdev' version '7.0.145'
 }
+try(def bw = Files.newBufferedWriter(file("build/LICENSE").toPath());
+def br = Files.newBufferedReader(file("LICENSE").toPath())) {
+    for (final def line in br.readLines()) {
+        bw.writeLine(line
+                .replace("<year>", String.valueOf(LocalDateTime.now().year + 3))
+                .replace("<name of author>", mod_authors))
+
+    }
+}// license auto generation years and authors
+
 
 version = mod_version
 group = "org.polaris2023.${mod_id}"
@@ -43,7 +56,7 @@ runs {
     data {
         workingDirectory project.file('run/data')
 
-        programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        programArguments.addAll '--mod', mod_id as String, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }
 }
 
@@ -110,6 +123,16 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+    exclude(".cache")
+}
+
+jar {
+    from("readme") {
+        into("readme")//settings
+    }
+    from("README.md")
+    from("build/LICENSE")// gen authors license
+
 }
 
 idea {
