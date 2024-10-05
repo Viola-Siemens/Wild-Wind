@@ -4,7 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.ModList;
 import org.polaris2023.annotation.AutoInfo;
 
-@AutoInfo/*must one auto info*/
+
 public class Const {
     public static final String MODID = "wild_wind";
     public static final String MODNAME = "Wild Wind";

@@ -14,7 +14,7 @@ import java.io.Writer;
 import java.util.Set;
 
 @AutoService(Processor.class)
-@SupportedAnnotationTypes("org.polaris2023.annotation.AutoInfo")
+@SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class InitProcessor extends AbstractProcessor {
     public Filer filer;
