@@ -1,8 +1,11 @@
 package org.polaris2023.wild_wind.api;
 
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.ModList;
-import org.polaris2023.annotation.AutoInfo;
 
 
 public class Const {
@@ -12,5 +15,8 @@ public class Const {
 
     public static ResourceLocation location(String path) {
         return ResourceLocation.fromNamespaceAndPath(MODID, path);
+    }
+    public static <T> TagKey<T> tags(ResourceKey<Registry<T>> resourceKey, String name) {
+        return TagKey.create(resourceKey, location(name));
     }
 }
