@@ -3,21 +3,23 @@ package org.polaris2023.wild_wind.client.model.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import org.jetbrains.annotations.NotNull;
 import org.polaris2023.wild_wind.api.Const;
+import org.polaris2023.wild_wind.client.animations.FireflyAnimation;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
-public class FireflyModel extends EntityModel<Firefly> {
+public class FireflyModel extends HierarchicalModel<Firefly> {
     public static final ModelLayerLocation LOCATION = new ModelLayerLocation(Const.location("firefly"), "main");
-    private final ModelPart bug;
-    private final ModelPart head;
-    private final ModelPart antennae;
-    private final ModelPart tail;
+    public final ModelPart bug;
+    public final ModelPart head;
+    public final ModelPart antennae;
+    public final ModelPart tail;
     private final ModelPart tail1;
     private final ModelPart tail2;
     private final ModelPart tail3;
@@ -68,6 +70,7 @@ public class FireflyModel extends EntityModel<Firefly> {
                           float pAgeInTicks,
                           float pNetHeadYaw,
                           float pHeadPitch) {
+        animate(pEntity.idle, FireflyAnimation.idle, pAgeInTicks, 0.3f);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -82,7 +85,7 @@ public class FireflyModel extends EntityModel<Firefly> {
 
         PartDefinition antennae = head.addOrReplaceChild("antennae", CubeListBuilder.create(), PartPose.offset(0.0F, -1.5F, -3.0F));
 
-        PartDefinition cube_r1 = antennae.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 29).addBox(0.0F, -2.0F, -3.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, 0.0F, 0.0F, 0.0F, -0.1745F, 0.0F));
+        PartDefinition cube_r1 = antennae.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(7, 29).mirror().addBox(0.0F, -2.0F, -3.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(1.0F, 0.0F, 0.0F, 0.0F, -0.1745F, 0.0F));
 
         PartDefinition cube_r2 = antennae.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(7, 29).addBox(0.0F, -2.0F, -3.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, 0.0F, 0.0F, 0.0F, 0.1745F, 0.0F));
 
@@ -125,4 +128,11 @@ public class FireflyModel extends EntityModel<Firefly> {
                                int pColor) {
         bug.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
     }
+
+    @Override
+    public ModelPart root() {
+        return this.bug;
+    }
+
+
 }

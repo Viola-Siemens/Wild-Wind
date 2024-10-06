@@ -10,6 +10,12 @@ public class Base extends Goal {
     public Base(Firefly Firefly) {
         this.firefly = Firefly;
     }
+
+    @Override
+    public void tick() {
+        super.tick();
+    }
+
     @Override
     public boolean canUse() {
         return false;

@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import org.polaris2023.wild_wind.client.animations.FireflyAnimation;
 import org.polaris2023.wild_wind.client.model.entity.FireflyModel;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 
@@ -34,5 +35,6 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyModel> {
     ) {
 
         super.render(entity, yaw, partialTick, transform, bufferSource, packedLight);
+
     }
 }
