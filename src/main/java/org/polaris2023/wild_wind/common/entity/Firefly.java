@@ -5,6 +5,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.commands.WeatherCommand;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -21,7 +23,10 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -146,7 +151,15 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     public static boolean canFireflySpawn(EntityType<? extends Firefly> type, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, RandomSource random) {
-
-        return level.getLightEmission(pos) == 0 && checkMobSpawnRules(type, level, mobSpawnType, pos, random);
+        LevelData levelData = level.getLevelData();
+        if (
+                level.getBlockState(pos).is(Blocks.LAVA) ||
+                level.getBlockState(pos).is(Blocks.WATER) ||
+                        levelData.isRaining()
+        ) return false;
+        return level.canSeeSky(pos) &&
+                level.getLightEmission(pos) < 6 &&
+                level.dayTime() < 13000 &&
+                checkMobSpawnRules(type, level, mobSpawnType, pos, random);
     }
 }
