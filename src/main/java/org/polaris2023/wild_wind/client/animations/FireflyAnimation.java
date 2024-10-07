@@ -6,7 +6,6 @@ import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.util.Mth;
 
-import javax.annotation.MatchesPattern;
 import java.util.ArrayList;
 import java.util.List;
 

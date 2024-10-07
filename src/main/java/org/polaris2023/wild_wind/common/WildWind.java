@@ -38,12 +38,14 @@ public class WildWind {
 	public static void buildGroup(BuildCreativeModeTabContentsEvent event) {
 		if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
 			event.accept(ItemsRegistry.glowGoop);
+			event.accept(ItemsRegistry.fluorescentPowder);
+			event.accept(ItemsRegistry.fluorescentMucus);
 		}
 		if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
-			event.accept(ItemsRegistry.fireflyEgg);
+			event.accept(ItemsRegistry.fireflySpawnEgg);
 		}
 		if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-			event.accept(ItemsRegistry.fireflyEgg);
+			event.accept(ItemsRegistry.fireflySpawnEgg);
 		}
 	}
 }

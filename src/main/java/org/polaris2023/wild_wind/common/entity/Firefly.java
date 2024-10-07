@@ -5,6 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -21,6 +22,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.common.goals.firefly.Base;
 import org.polaris2023.wild_wind.common.goals.firefly.Fly;
@@ -58,7 +63,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     @Override
     public void tick() {
         super.tick();
-        idle.startIfStopped(tickCount);
+        if (isRoost()) {
+            idle.stop();
+        } else {
+            idle.startIfStopped(tickCount);
+        }
     }
 
     @Override
@@ -121,9 +130,11 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     }
 
     public static AttributeSupplier createAttributes() {
+
         return AmbientCreature.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 8f)
-                .add(Attributes.FLYING_SPEED, 0.6f)
+                .add(Attributes.MAX_HEALTH, 8F)
+                .add(Attributes.FLYING_SPEED, 0.6F)
+                .add(Attributes.GRAVITY, 0F)
                 .build();
     }
 
@@ -132,5 +143,10 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     @Override
     public boolean isFlying() {
         return true;
+    }
+
+    public static boolean canFireflySpawn(EntityType<? extends Firefly> type, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos pos, RandomSource random) {
+
+        return level.getLightEmission(pos) == 0 && checkMobSpawnRules(type, level, mobSpawnType, pos, random);
     }
 }

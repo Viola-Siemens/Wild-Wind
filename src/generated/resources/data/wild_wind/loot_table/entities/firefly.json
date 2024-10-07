@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wild_wind:fluorescent_powder"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "wild_wind:entities/firefly"
+}
