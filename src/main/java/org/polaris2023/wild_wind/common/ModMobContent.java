@@ -24,7 +24,7 @@ public class ModMobContent {
 
     @SubscribeEvent
     public static void entitySpawnRestriction(RegisterSpawnPlacementsEvent event) {
-        event.register(EntitiesRegistry.firefly.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+        event.register(EntitiesRegistry.firefly.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Firefly::canFireflySpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 }
