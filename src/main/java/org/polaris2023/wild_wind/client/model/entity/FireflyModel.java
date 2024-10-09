@@ -2,13 +2,12 @@ package org.polaris2023.wild_wind.client.model.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.animation.definitions.BatAnimation;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import org.jetbrains.annotations.NotNull;
 import org.polaris2023.wild_wind.api.Const;
 import org.polaris2023.wild_wind.client.animations.FireflyAnimation;
 import org.polaris2023.wild_wind.common.entity.Firefly;
@@ -16,10 +15,10 @@ import org.polaris2023.wild_wind.common.entity.Firefly;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class FireflyModel extends HierarchicalModel<Firefly> {
     public static final ModelLayerLocation LOCATION = new ModelLayerLocation(Const.location("firefly"), "main");
-    public final ModelPart bug;
-    public final ModelPart head;
-    public final ModelPart antennae;
-    public final ModelPart tail;
+    private final ModelPart bug;
+    private final ModelPart head;
+    private final ModelPart antennae;
+    private final ModelPart tail;
     private final ModelPart tail1;
     private final ModelPart tail2;
     private final ModelPart tail3;
@@ -33,6 +32,7 @@ public class FireflyModel extends HierarchicalModel<Firefly> {
     private final ModelPart leftleg3;
     private final ModelPart right_wing1;
     private final ModelPart left_wing1;
+
     public FireflyModel(ModelPart root) {
         this.bug = root.getChild("bug");
         this.head = this.bug.getChild("head");
@@ -51,26 +51,6 @@ public class FireflyModel extends HierarchicalModel<Firefly> {
         this.leftleg3 = this.tail.getChild("leftleg3");
         this.right_wing1 = this.tail.getChild("right_wing1");
         this.left_wing1 = this.tail.getChild("left_wing1");
-    }
-
-    /**
-     * Sets this entity's model rotation angles
-     *
-     * @param pEntity {@link Firefly}
-     * @param pLimbSwing {@link Float}
-     * @param pLimbSwingAmount {@link Float}
-     * @param pAgeInTicks {@link Float}
-     * @param pNetHeadYaw {@link Float}
-     * @param pHeadPitch {@link Float}
-     */
-    @Override
-    public void setupAnim(@NotNull Firefly pEntity,
-                          float pLimbSwing,
-                          float pLimbSwingAmount,
-                          float pAgeInTicks,
-                          float pNetHeadYaw,
-                          float pHeadPitch) {
-        animate(pEntity.idle, FireflyAnimation.idle, pAgeInTicks, 0.3f);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -121,12 +101,13 @@ public class FireflyModel extends HierarchicalModel<Firefly> {
     }
 
     @Override
-    public void renderToBuffer(@NotNull PoseStack pPoseStack,
-                               @NotNull VertexConsumer pBuffer,
-                               int pPackedLight,
-                               int pPackedOverlay,
-                               int pColor) {
-        bug.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pColor);
+    public void setupAnim(Firefly entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        animate(entity.idle, FireflyAnimation.idle, 0.7f);
+    }
+
+    @Override
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+        bug.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 
     @Override

@@ -32,6 +32,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import org.polaris2023.wild_wind.client.animations.FireflyAnimation;
 import org.polaris2023.wild_wind.common.goals.firefly.Base;
 import org.polaris2023.wild_wind.common.goals.firefly.Fly;
 import org.polaris2023.wild_wind.common.goals.firefly.Roost;
@@ -63,16 +64,6 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
 
     public boolean isRoost() {
         return this.entityData.get(roost);
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        if (isRoost()) {
-            idle.stop();
-        } else {
-            idle.startIfStopped(tickCount);
-        }
     }
 
     @Override
@@ -124,8 +115,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new Base(this));
-        this.goalSelector.addGoal(1, new Roost(this));
-        this.goalSelector.addGoal(2, new Fly(this));
+        this.goalSelector.addGoal(1, new Roost(this, 0.8d));
+        this.goalSelector.addGoal(2, new Fly(this, 0.8d));
 
     }
 

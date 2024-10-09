@@ -4,27 +4,14 @@ import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
-import net.minecraft.util.Mth;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FireflyAnimation {
-        public static final List<Keyframe> bugRotations = new ArrayList<>();
-        public static final List<Keyframe> bugPositions = new ArrayList<>();
-        static {
-                for (int i = 0; i < 30000; i++) {
-                        float v = ((float) i) / 10000;
-                        bugRotations.add(new Keyframe(v, KeyframeAnimations.degreeVec(-12.5F + Mth.sin((v - 0.0F)*720F) * 1, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR));
-                        bugPositions.add(new Keyframe(v, KeyframeAnimations.posVec(0.0F, 0.5F + Mth.cos((v - 0.3F) * 720F) * 0.2F, -1.0F), AnimationChannel.Interpolations.LINEAR));
-                }
-        }
         public static final AnimationDefinition idle = AnimationDefinition.Builder.withLength(3.0F).looping()
                 .addAnimation("bug", new AnimationChannel(AnimationChannel.Targets.ROTATION,
-                        bugRotations.toArray(new Keyframe[0])
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(-12.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .addAnimation("bug", new AnimationChannel(AnimationChannel.Targets.POSITION,
-                        bugPositions.toArray(new Keyframe[0])
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.3382F, -1.0F), AnimationChannel.Interpolations.LINEAR)
                 ))
                 .addAnimation("tail", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                         new Keyframe(0.0F, KeyframeAnimations.degreeVec(-22.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)

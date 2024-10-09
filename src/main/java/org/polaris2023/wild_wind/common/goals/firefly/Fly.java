@@ -5,13 +5,25 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 
-public class Fly extends Base {
-    public Fly(Firefly Firefly) {
-        super(Firefly);
+import javax.annotation.Nullable;
+
+public class Fly extends RandomStrollGoal {
+    private final Firefly firefly;
+    protected final float probability;
+    public Fly(Firefly firefly, double speedModifier) {
+        super(firefly, speedModifier);
+        this.firefly = firefly;
+        probability = 0.001F;
     }
 
     @Override
@@ -19,20 +31,25 @@ public class Fly extends Base {
         super.tick();
     }
 
-    private void checkMovement() {
-        Vec3 vec3 = firefly.getDeltaMovement();
-        if (Math.abs(vec3.x) > 0.1 || Math.abs(vec3.z) > 0.1) {
-            double d = Math.abs(firefly.xo - firefly.getX());
-            if (d < 0.1)
-                firefly.getNavigation().stop();
+    @Nullable
+    @Override
+    protected Vec3 getPosition() {
+        if (this.mob.isInWaterOrBubble() && this.mob.isInLava()) {
+            Vec3 vec3 = LandRandomPos.getPos(this.mob, 15, 7);
+            return vec3 == null ? super.getPosition() : vec3;
+        } else {
+            return this.mob.getRandom().nextFloat() >= this.probability ? LandRandomPos.getPos(this.mob, 10, 7) : super.getPosition();
         }
     }
 
     @Override
     public boolean canUse() {
-        if (firefly.isFlying()) {
-            return true;
+        Level level = firefly.level();
+        if (!level.isRaining() || level.getDayTime() < 13000) {
+            firefly.setRoost(false);
         }
-        return super.canUse();
+        return !firefly.isRoost() && !level.isRaining() && level.dayTime() < 13000;
     }
+
+
 }
