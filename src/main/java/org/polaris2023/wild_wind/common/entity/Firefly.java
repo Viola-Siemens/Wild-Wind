@@ -134,7 +134,20 @@ public class Firefly extends PathfinderMob implements FlyingAnimal {
                 .build();
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+        Level level = level();
 
+        if (isRoost()) {
+            idle.stop();
+            if (!level.isRaining() || level.getDayTime() < 13000) {
+                setRoost(false);
+            }
+        } else {
+            idle.start(tickCount);
+        }
+    }
 
     @Override
     public boolean isFlying() {

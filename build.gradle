@@ -10,7 +10,10 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.gradle.userdev' version '7.+'
 }
-try(def bw = Files.newBufferedWriter(file("build/LICENSE").toPath())
+
+def buildLicensePath = file("build/LICENSE").toPath()
+Files.createDirectories(buildLicensePath.getParent())
+try(def bw = Files.newBufferedWriter(buildLicensePath)
 def br = Files.newBufferedReader(file("LICENSE").toPath())) {
     for (final def line in br.readLines()) {
         bw.writeLine(line
