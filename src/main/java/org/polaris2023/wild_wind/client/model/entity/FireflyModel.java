@@ -102,7 +102,8 @@ public class FireflyModel extends HierarchicalModel<Firefly> {
 
     @Override
     public void setupAnim(Firefly entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        animate(entity.idle, FireflyAnimation.idle, ageInTicks, 0.3f);
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        animate(entity.idle, FireflyAnimation.idle, ageInTicks);
     }
 
     @Override
